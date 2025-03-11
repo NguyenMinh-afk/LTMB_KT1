@@ -17,6 +17,8 @@ export default function App() {
         screenOptions={({ route }) => ({
           tabBarIcon: ({ color, size }) => {
             let iconName;
+
+            // Chọn icon thích hợp cho từng tab
             if (route.name === 'Home') {
               iconName = 'home';
             } else if (route.name === 'Notifications') {
@@ -28,6 +30,8 @@ export default function App() {
             } else if (route.name === 'Cart') {
               iconName = 'shopping-cart';
             }
+
+            // Trả về icon
             return <Icon name={iconName} size={size} color={color} />;
           },
           tabBarActiveTintColor: 'blue',

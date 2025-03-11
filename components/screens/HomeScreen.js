@@ -1,8 +1,8 @@
 import React from 'react';
-import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
+import { View, Text, StyleSheet, Image, TouchableOpacity, ScrollView } from 'react-native';
 import Icon from 'react-native-vector-icons/FontAwesome';
 
-export default function HomeScreen() {
+export default function HomeScreen({ navigation }) {
   return (
     <View style={styles.container}>
       {/* Phần chào mừng và ảnh */}
@@ -21,11 +21,15 @@ export default function HomeScreen() {
       <View style={styles.insightsContainer}>
         <Text style={styles.insightsTitle}>Your Insights</Text>
         <View style={styles.insightRow}>
-          <View style={styles.insightBox}>
+          {/* Touchable for "Scan new" */}
+          <TouchableOpacity
+            style={styles.insightBox}
+            onPress={() => navigation.navigate('Scan')} // Điều hướng đến Scan
+          >
             <Icon name="qrcode" size={30} color="#555" />
             <Text style={styles.insightTitle}>Scan new</Text>
             <Text style={styles.insightData}>Scanned 483</Text>
-          </View>
+          </TouchableOpacity>
           <View style={styles.insightBox}>
             <Icon name="warning" size={30} color="#d9534f" />
             <Text style={styles.insightTitle}>Counterfeits</Text>
@@ -52,8 +56,8 @@ export default function HomeScreen() {
         <Icon name="arrow-right" size={20} color="#000" style={styles.arrowIcon} />
       </TouchableOpacity>
 
-      {/* Hình ảnh bên dưới */}
-      <View style={styles.imageRow}>
+      {/* Phần hình ảnh kéo ngang */}
+      <ScrollView horizontal={true} style={styles.imageRow} showsHorizontalScrollIndicator={false}>
         <Image
           style={styles.smallImage}
           source={require('../../assets/image-1.png')} // Hình ảnh đầu tiên
@@ -66,7 +70,15 @@ export default function HomeScreen() {
           style={styles.smallImage}
           source={require('../../assets/image-3.png')} // Hình ảnh thứ ba
         />
-      </View>
+        <Image
+          style={styles.smallImage}
+          source={require('../../assets/image-4.png')} // Hình ảnh thứ bốn
+        />
+        <Image
+          style={styles.smallImage}
+          source={require('../../assets/image-5.png')} // Hình ảnh thứ năm
+        />
+      </ScrollView>
     </View>
   );
 }
@@ -149,19 +161,18 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     color: '#333',
-    marginRight: 150, // Tăng khoảng cách giữa chữ và mũi tên
+    marginRight: 8, // Khoảng cách giữa text và icon
   },
   arrowIcon: {
-    marginLeft: 50, // Khoảng cách đảm bảo tính cân đối
+    marginLeft: 200, // Khoảng cách giữa icon và text
   },
   imageRow: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
     marginTop: 10,
   },
   smallImage: {
     width: 100,
     height: 100,
     borderRadius: 10,
+    marginRight: 10, // Khoảng cách giữa các ảnh
   },
 });
