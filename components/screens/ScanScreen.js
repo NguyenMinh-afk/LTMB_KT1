@@ -1,37 +1,43 @@
 import React from 'react';
 import { View, Text, StyleSheet, Image, TouchableOpacity } from 'react-native';
 
-export default function ScanScreen() {
+export default function ScanScreen({ navigation }) {
   return (
     <View style={styles.container}>
-      {/* Khung quét sản phẩm với vector góc */}
+      {/* Header with back button */}
+      <View style={styles.header}>
+        <TouchableOpacity style={styles.backButton} onPress={() => navigation.navigate('Home')}>
+          <Text style={styles.backButtonText}>{'<'}</Text>
+        </TouchableOpacity>
+      </View>
+
+      {/* Scanning Frame */}
       <View style={styles.scannerFrame}>
-        {/* Các góc vector */}
         <View style={[styles.corner, styles.topLeft]} />
         <View style={[styles.corner, styles.topRight]} />
         <View style={[styles.corner, styles.bottomLeft]} />
         <View style={[styles.corner, styles.bottomRight]} />
 
-        {/* Ảnh sản phẩm */}
         <Image
           style={styles.productImage}
-          source={require('../../assets/orange-juice.png')} // Thay bằng đường dẫn ảnh chai nước ép
+          source={require('../../assets/orange-juice.png')} // Path to the orange juice image
         />
       </View>
 
-      {/* Thông tin sản phẩm */}
-      <View style={styles.productInfoContainer}>
+      {/* Product Info Section */}
+      <TouchableOpacity style={styles.productInfoContainer}>
         <Image
           style={styles.thumbnailImage}
-          source={require('../../assets/orange-juice-thumbnail.png')} // Ảnh thumbnail sản phẩm
+          source={require('../../assets/orange-juice-thumbnail.png')} // Path to product thumbnail
         />
         <View style={styles.productDetails}>
-          <Text style={styles.productName}>Lauren's Orange Juice</Text>
-          <TouchableOpacity style={styles.addButton}>
-            <Text style={styles.addButtonText}>+</Text>
-          </TouchableOpacity>
+          <Text style={styles.productName}>Lauren's</Text>
+          <Text style={styles.productSubName}>Orange Juice</Text>
         </View>
-      </View>
+        <TouchableOpacity style={styles.blueButton}>
+          <Text style={styles.blueButtonText}>+</Text>
+        </TouchableOpacity>
+      </TouchableOpacity>
     </View>
   );
 }
@@ -44,6 +50,35 @@ const styles = StyleSheet.create({
     justifyContent: 'center',
     padding: 20,
   },
+  header: {
+    position: 'absolute',
+    top: -60,
+    left: 0,
+    width: '100%',
+    height: 60, // Adjusted height for header
+    justifyContent: 'flex-start',
+    alignItems: 'flex-start',
+    padding: 15,
+    zIndex: 1, // Ensures the header is on top of all other elements
+  },
+  backButton: {
+    width: 40,
+    height: 40,
+    justifyContent: 'center',
+    alignItems: 'center',
+    backgroundColor: '#f4f4f4', // Light gray background
+    shadowColor: '#000',
+    shadowOpacity: 0.1,
+    shadowOffset: { width: 0, height: 2 },
+    shadowRadius: 5,
+    elevation: 3, // Shadow for Android
+    borderRadius: 0, // Square shape
+  },
+  backButtonText: {
+    fontSize: 18,
+    fontWeight: 'bold',
+    color: '#007bff', // Blue text for "<"
+  },
   scannerFrame: {
     flex: 3,
     width: '100%',
@@ -55,7 +90,7 @@ const styles = StyleSheet.create({
     marginBottom: 20,
     padding: 10,
     backgroundColor: '#f9f9f9',
-    position: 'relative', // Quan trọng để định vị vector góc
+    position: 'relative',
   },
   productImage: {
     width: '80%',
@@ -65,7 +100,7 @@ const styles = StyleSheet.create({
   corner: {
     width: 30,
     height: 30,
-    borderColor: '#007bff', // Màu xanh dương
+    borderColor: '#007bff', // Blue corners
     position: 'absolute',
   },
   topLeft: {
@@ -93,10 +128,9 @@ const styles = StyleSheet.create({
     right: 0,
   },
   productInfoContainer: {
-    flex: 1,
-    width: '100%',
     flexDirection: 'row',
     alignItems: 'center',
+    justifyContent: 'space-between',
     padding: 15,
     backgroundColor: '#f4f4f4',
     borderRadius: 10,
@@ -104,34 +138,39 @@ const styles = StyleSheet.create({
     shadowOpacity: 0.1,
     shadowOffset: { width: 0, height: 2 },
     shadowRadius: 5,
-    elevation: 3, // Hiệu ứng nổi trên Android
+    elevation: 3,
+    width: '100%',
+    marginTop: 10,
   },
   thumbnailImage: {
-    width: 50,
-    height: 50,
-    borderRadius: 10,
-    marginRight: 15,
+    width: 40,
+    height: 40,
+    borderRadius: 5,
   },
   productDetails: {
-    flexDirection: 'row',
-    justifyContent: 'space-between',
-    alignItems: 'center',
+    flexDirection: 'column',
+    justifyContent: 'center',
     flex: 1,
+    marginLeft: 10,
   },
   productName: {
-    fontSize: 18,
+    fontSize: 16,
     fontWeight: 'bold',
     color: '#333',
   },
-  addButton: {
-    width: 35,
-    height: 35,
-    backgroundColor: '#5cb85c',
-    borderRadius: 20,
+  productSubName: {
+    fontSize: 14,
+    color: '#666',
+  },
+  blueButton: {
+    width: 50,
+    height: 50,
+    backgroundColor: '#007bff', // Blue button
+    borderRadius: 25,
     justifyContent: 'center',
     alignItems: 'center',
   },
-  addButtonText: {
+  blueButtonText: {
     fontSize: 24,
     color: '#fff',
     fontWeight: 'bold',

@@ -149,10 +149,10 @@ const styles = StyleSheet.create({
     fontSize: 18,
     fontWeight: 'bold',
     color: '#333',
-    marginRight: 8,
+    marginRight: 150, // Tăng khoảng cách giữa chữ và mũi tên
   },
   arrowIcon: {
-    marginLeft: 8,
+    marginLeft: 50, // Khoảng cách đảm bảo tính cân đối
   },
   imageRow: {
     flexDirection: 'row',
